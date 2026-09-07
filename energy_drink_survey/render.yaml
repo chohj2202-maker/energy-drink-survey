@@ -3,6 +3,7 @@ services:
     name: energy-drink-survey
     runtime: python
     plan: free
+    rootDir: energy_drink_survey
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
