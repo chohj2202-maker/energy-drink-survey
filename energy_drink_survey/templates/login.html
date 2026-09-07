@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 로그인</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <div class="card small-card">
+        <h1>설문 결과 관리자</h1>
+        <p class="intro">결과를 확인하려면 비밀번호를 입력하세요.</p>
+        {% if error %}<div class="error">{{ error }}</div>{% endif %}
+        <form method="post">
+            <input class="password" type="password" name="password" placeholder="관리자 비밀번호" required>
+            <button type="submit">결과 보기</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

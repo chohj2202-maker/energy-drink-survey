@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설문 결과</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container wide">
+    <div class="topbar">
+        <div>
+            <div class="badge">관리자 페이지</div>
+            <h1>설문 결과</h1>
+        </div>
+        <a class="logout" href="{{ url_for('admin_logout') }}">로그아웃</a>
+    </div>
+
+    <div class="total-card">
+        <span>총 응답자</span>
+        <strong>{{ total }}명</strong>
+    </div>
+
+    {% if total == 0 %}
+    <div class="card center">
+        <p>아직 제출된 응답이 없습니다.</p>
+    </div>
+    {% endif %}
+
+    {% for q in results %}
+    <div class="result-card">
+        <h2>{{ loop.index }}. {{ q.title }}</h2>
+        {% for item in q.items %}
+        <div class="result-row">
+            <div class="result-label">
+                <span>{{ loop.index }}. {{ item.label }}</span>
+                <strong>{{ item.count }}명 ({{ item.percent }}%)</strong>
+            </div>
+            <div class="bar-bg">
+                <div class="bar" style="width: {{ item.percent }}%;"></div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <div class="admin-actions">
+        <a class="secondary-button" href="{{ url_for('survey') }}">설문 페이지</a>
+        <a class="secondary-button" href="{{ url_for('qr') }}" target="_blank">QR 코드 보기</a>
+        <form action="{{ url_for('delete_all') }}" method="post"
+              onsubmit="return confirm('모든 응답을 삭제할까요? 이 작업은 되돌릴 수 없습니다.');">
+            <button class="danger" type="submit">전체 응답 삭제</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

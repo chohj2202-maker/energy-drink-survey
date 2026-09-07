@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시험 기간 에너지 음료 설문조사</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="badge">학교 수행평가</div>
+        <h1>시험 기간 에너지 음료<br>섭취 실태 조사</h1>
+        <p class="intro">아래 문항에 솔직하게 답해주세요.<br>이름이나 개인정보는 수집하지 않습니다.</p>
+
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form action="{{ url_for('submit') }}" method="post">
+            {% for q in questions %}
+            <section class="question">
+                <h2>{{ loop.index }}. {{ q.title }}</h2>
+                <div class="options">
+                    {% for option in q.options %}
+                    <label class="option">
+                        <input type="radio" name="{{ q.id }}" value="{{ loop.index }}" required>
+                        <span>{{ loop.index }}. {{ option }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endfor %}
+
+            <button type="submit">설문 제출하기</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
