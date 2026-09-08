@@ -24,13 +24,10 @@
     {% if total == 0 %}
     <div class="card center">
         <p>아직 제출된 응답이 없습니다.</p>
-    </div>
-    {% endif %}
-
-    {% for item in q["items"] %}
+    {% for q in results %}
     <div class="result-card">
         <h2>{{ loop.index }}. {{ q.title }}</h2>
-        {% for item in q.items %}
+        {% for item in q["items"] %}
         <div class="result-row">
             <div class="result-label">
                 <span>{{ loop.index }}. {{ item.label }}</span>
@@ -40,6 +37,9 @@
                 <div class="bar" style="width: {{ item.percent }}%;"></div>
             </div>
         </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
         {% endfor %}
     </div>
     {% endfor %}
